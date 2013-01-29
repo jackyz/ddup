@@ -1,0 +1,166 @@
+<div id="register" class="lazy box form">
+
+<style type="text/css">
+#register {
+  width:480px; height:420px;
+  left:340px; top:30px;
+  z-index:1002;
+}
+#register .hint {
+  width:180px;
+}
+</style>
+
+<div class="zebra"> </div>
+<div class="title"> 注册 </div>
+<div class="texts">
+  <form action="/u/register" method="post">
+    请输入下面的信息，注册成功我们会将密码通过短信发送到你的手机。
+    <br/><br/>
+    <div id="mobile">
+      家长的手机：<input name="mobile" type="text" /> * 
+      <div class="hint">
+	请输入手机号，登录时使用此号码
+	<br/><br/>
+	<b>为什么需要家长的手机号？</b>
+	<br/><br/>
+	用手机号登录更简单好记。
+	<br/><br/>
+	如果工作繁忙，忘了孩子的学习，可以发短信提醒(提醒短信完全免费，而且可以设置，请放心使用)。
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="nick">
+      家长的称呼：<input name="nick" type="text" /> *
+      <div class="hint">
+	请输入家长的称呼，如:贝贝妈
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="name">
+      孩子的名字：<input name="name" type="text" /> *
+      <div class="hint">
+	请输入孩子的名字，如:贝贝
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="birthday">
+      孩子的生日：<input name="birthday" type="text" /> *
+      <div class="hint">
+	请输入孩子的生日，如: 2009.12.31
+	<br/><br/>
+	<b>为什需要知道孩子的生日？</b>
+	<br/><br/>
+	不同年龄段的孩子有着不同的记忆特性，我们会针对你的孩子量身定制适合他的学习计划。
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="gender">
+      孩子的性别：
+      <input type="radio" name="gender" value="male" checked/> 男
+      <input type="radio" name="gender" value="female"/> 女 * 
+      <div class="hint">
+	请选择孩子的性别
+	<br/><br/>
+	<b>为什需要知道孩子的性别？</b>
+	<br/><br/>
+	不同性别的孩子记忆力的发展特性也不相同，我们会针对你的孩子量身定制适合他的学习计划。
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="email">
+      家长的邮件：<input name="email" type="text" />
+      <div class="hint">
+	请输入家长的邮件地址，孩子的学习进度报告将发到这个地址
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="token">
+      图形验证码：<input name="token" type="text" size="4" /> *
+      <div class="hint">
+	请参照图片输入
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp"></span>
+      </div>
+    </div>
+    <div id="info">
+      标有 * 号的为必填项。
+      <div class="error"> &nbsp;
+	<span id="auth">手机号/密码不匹配</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <input type="reset" value="取消"/>
+      <input type="submit" value="确定"/>
+      <span>操作中...</span>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+
+    /* export */
+  
+    // init :: bind all links to /u/register
+    $("#register").bind("init", function(){
+      $("a[href='/u/register']").unbind("click").bind("click", function(){
+        $("#register").trigger("show");
+        return false;
+      });
+    });
+
+    // show
+    $("#register").bind("show", function(){
+      $.box("#register").show(true);
+      $.form("#register").bind();
+    });
+
+    // hide
+    $("#register").bind("hide", function(){
+      $.box("#register").hide();
+    });
+
+    /* bind */
+
+    $.form("#register").init();
+
+    // submit
+    $("#register form").submit(function(){
+      $.post($(this).attr("action"), $(this).serialize(), function(d){
+        if(!d[0]) alert("success");
+        $.form("#register").bind(d[1]);
+      }, "json");
+      return false;
+    });
+
+    // reset
+    $("#register form input:reset").click(function(){
+      $("#register").trigger("hide");
+      return false;
+    });
+
+  });
+</script>
+
+</div>

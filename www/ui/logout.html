@@ -1,0 +1,27 @@
+<div id="logout" class="lazy">
+
+<style type="text/css">
+#logout {
+  display:none;
+}
+</style>
+
+<script type="text/javascript">
+  $(function(){
+  
+    /* export */
+  
+    // init :: bind all links to /u/logout
+    $("#logout").bind("init", function(){
+      $("a[href='/u/logout']").unbind("click").bind("click", function(){
+        $.post($(this).attr("href"), function(d){
+          window.location.reload();
+        });
+        return false;
+      });
+    });
+
+  });
+</script>
+
+</div>

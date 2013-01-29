@@ -1,0 +1,27 @@
+<div id="menu" class="lazy">
+
+<style type="text/css">
+#menu .topmenu {
+  position:absolute;
+  width:100%; height:1.5em; line-height:1.5em;
+  right:0px; top:0px;
+  text-align:right; padding-right:0.5em;
+  /* background:#000;
+  opacity:0.5; filter:alpha(opacity=50);
+  z-index:2; */
+  display:none;
+}
+</style>
+
+<div class="topmenu">
+  <a href="/u/logout">登出</a>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    // init
+    $.thread(function(){ $("#menu .topmenu").fadeIn(1000); }, 1000);
+  });
+</script>
+
+</div>

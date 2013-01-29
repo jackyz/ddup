@@ -1,0 +1,68 @@
+body { 
+    background-color: #fff; color: #333;
+    font-family: verdana, arial, helvetica, sans-serif;
+}
+
+/* lazy */
+.lazy {
+}
+
+/* box */
+
+.box {
+    display:none;
+    position:absolute;
+    background:#fff;
+    border:1px solid #666;
+    /* z-index: 1001; */
+    color:#000;
+    /* needs width, height, left, top, z-index to be defined by id */
+}
+/* mask of box */
+.mask {
+    position:absolute;
+    width:100%; height:100%;
+    left:0px; top:0px;
+    /* background: url(trans_bg.png); */
+    background:#000;
+    filter:alpha(opacity=50);
+    opacity:0.5;
+    z-index:1000;
+}
+.box .zebra {
+    background:transparent url(/images/zebra.gif) repeat scroll left top;
+    height:15px;
+}
+.box .title {
+    padding:10px;
+}
+.box .texts {
+    font-size: 80%;
+    padding:0px 20px;
+}
+
+/* form */
+
+.form {
+    display:none;
+}
+.form .hint {
+    display:none;
+    float:right;
+    z-index:2001;
+    border:1px #000 solid;
+    background: #ffc;
+    width:180px;
+}
+.form .error {
+    color:red;
+}
+.form .error span {
+    display:none;
+}
+.form img {
+    vertical-align:top;
+}
+.form .buttons {
+    text-align:center;
+}

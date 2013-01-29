@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}welcome{% endblock %}
+
+{% block body %}
+
+<div id="main">
+
+<style type="text/css">
+#main {
+  margin-top:1.5em;
+}
+</style>
+
+Welcom back, {{ nick }}!
+
+</div>
+
+<script type="text/javascript">
+$(function(){
+  $.lazy("/ui/menu_user.html").load();
+  $.lazy("/ui/logout.html").load();
+});
+</script>
+
+{% endblock %}

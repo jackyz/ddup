@@ -1,0 +1,103 @@
+<div id="recover" class="lazy box form">
+
+<style type="text/css">
+#recover {
+  width:480px; height:240px;
+  left:640px; top:30px;
+  z-index:1003;
+}
+#recover .hint {
+  width:200px;
+}
+</style>
+
+<div class="zebra"> </div>
+<div class="title"> 重置密码 </div>
+<div class="texts">
+  请输入下面的信息，重置成功我们会将临时密码通过短信发送到你的手机。
+  <br/><br/>
+  <form action="/u/recover" method="post">
+    <div id="mobile">
+      手　机：
+      <input name="mobile" type="text" /> *
+      <div class="hint">
+	请输入你注册所用的手机号
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="regexp">格式如：13912345678</span>
+      </div>
+    </div>
+    <div id="token">
+      验证码：
+      <input name="token" type="text" size="6" /> * 
+      <div class="hint">
+	请照图形输入验证码。
+      </div>
+      <div class="error"> &nbsp;
+	<span id="exist">此项为必填项</span>
+	<span id="length">验证码长度限定为4</span>
+	<span id="equal">验证码不符</span>
+      </div>
+    </div>
+    <div id="info">
+      标有 * 号的为必填项。
+      <div class="error"> &nbsp;
+	<span id="auth">手机号/密码不匹配</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <input type="reset" value="取消"/>
+      <input type="submit" value="确定"/>
+      <span>操作中...</span>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+  
+    /* export */
+  
+    // init :: bind all links to /u/recover
+    $("#recover").bind("init", function(){
+      $("a[href='/u/recover']").unbind("click").bind("click", function(){
+        $("#recover").trigger("show");
+        return false;
+      });
+    });
+
+    // show
+    $("#recover").bind("show", function(){
+      $.box("#recover").show(true);
+      $.form("#recover").bind();
+    });
+
+    // hide
+    $("#recover").bind("hide", function(){
+      $.box("#recover").hide();
+    });
+
+    /* bind */
+
+    $.form("#recover").init();
+
+    // bind submit
+    $("#recover form").submit(function(){
+      $.post($(this).attr("action"), $(this).serialize(), function(d){
+        if(!d[0]) return alert("success");
+        $.form("#recover").bind(d[1]);
+      }, "json");
+      return false;
+    });
+
+    // reset
+    $("#recover form input:reset").click(function(){
+      $("#recover").trigger("hide");
+      return false;
+    });
+
+  });
+</script>
+  
+</div>

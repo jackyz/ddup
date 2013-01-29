@@ -1,0 +1,290 @@
+<div id="diag">
+
+<style type="text/css">
+
+#diag .topmenu {
+  position:absolute;
+  width:100%; height:1.5em; line-height:1.5em;
+  right:0px; top:0px;
+  text-align:right; padding-right:0.5em;
+  /* background:#000;
+  opacity:0.5; filter:alpha(opacity=50);
+  z-index:2; */
+}
+
+#diag .box-bg {
+  position:absolute;
+  width:100%; height:100%;
+  left:0px; top:0px;
+/*  background: url(trans_bg.png); */
+  background:#000;
+  filter:alpha(opacity=50);
+  opacity:0.5;
+  z-index:1000;
+}
+#diag .box-fg {
+  position:absolute;
+  background:#fff;
+  border:1px solid #666;
+  /* z-index: 1001; */
+  color:#000;
+  /* needs width, height, left, top, defined by id */
+}
+#diag .box-zebra {
+  background:transparent url(/images/zebra.gif) repeat scroll left top;
+  height:15px;
+}
+#diag .box-title {
+  padding:10px;
+}
+#diag .box-texts {
+  font-size: 80%;
+  padding:0px 20px;
+}
+
+#diag .box-buttons {
+  text-align:center;
+}
+
+#diag .box-hints {
+  position:fixed;
+  top:10px; left:20px;
+  width:180px;
+  z-index:2001;
+  border:3px #99e solid;
+  background: #fff;
+}
+
+#diag form img {
+  vertical-align:top;
+}
+
+#diag div#register {
+  width:480px; height:360px;
+  left:40px; top:30px;
+  z-index:1001;
+}
+#diag div#login {
+  width:480px; height:270px;
+  left:340px; top:30px;
+  z-index:1002;
+}
+#diag div#recover {
+  width:480px; height:200px;
+  left:640px; top:30px;
+  z-index:1003;
+}
+</style>
+
+  <div class="topmenu">
+    <a href="/u/register">注册</a>
+    <a href="/u/login">登录</a>
+    <!--
+       <a href="/u/recover">重置密码</a>
+       <a href="/u/logout">登出</a>
+       -->
+  </div>
+
+  <div class="box-bg"></div>
+
+  <div id="register" class="box-fg">
+    <div class="box-zebra"> </div>
+    <div class="box-title"> 注册 </div>
+    <div class="box-texts">
+      <form id="register" action="/u/register" method="post">
+	<b>你的信息</b><br/>
+	　　手机：<input name="mobile" type="text" /> * <br/>
+	　　称呼：<input name="nickname" type="text" /> <br/>
+	　　邮件：<input name="email" type="text" /> <br/>
+	<b>宝宝的信息</b><br/>
+	　　名字：<input name="name" type="text" /> * <br/>
+	　　生日：<input name="birthday" type="text" /> * <br/>
+	　　性别：<input type="radio" name="gender" value="male" checked/> 男
+	<input type="radio" name="gender" value="female"/> 女 * <br/>
+	<b>图形验证码</b><br/>
+	　　　　　<input name="token" type="text" size="6" /> * <br/>
+	<br/>
+	标有 * 号的为必填项。<br/>
+	<br/>
+	<div class="box-buttons">
+	  <input type="reset" value="取消"/>
+	  <input type="submit" value="确定"/>
+	</div>
+      </form>
+      <div class="box-hints" for="register">
+	<span for="gender">
+	  请输入孩子的性别。<br/>
+	  不同性别孩子的记忆特点有所不同。
+	</span>
+	<span for="birthday">
+	  请输入孩子的出生日期。<br/>
+	  不同年龄孩子的记忆特点有所不同。
+	</span>
+	<span for="name">
+	  请输入孩子的姓名。<br/>
+	  在系统中我们会用到孩子的姓名。
+	</span>
+	<span for="nickname">
+	  请输入你的称呼(比如:贝贝妈)。<br/>
+	  在系统中我们会用到你的称呼。
+	</span>
+	<span for="mobile">
+	  请输入你的手机号。<br/>
+	  在登录时，直接使用手机号。<br/>
+	  <br/>
+	  <b>为什么要用手机号？</b><br/>
+	  <br/>
+	  孩子的学习贵在每日坚持。
+	  当你不小心忘记时，我们会通过手机短信对你进行提醒。
+	  (提醒完全免费，请放心使用)
+	</span>
+	<span for="email">
+	  请输入你的电子邮件。<br/>
+	  我们会定期通过邮件发送孩子的学习进度报告。
+	</span>
+	<span for="token">
+	  请参照输入框后的图形输入。<br/>
+	  验证码由数字或字母组成。
+	</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="login" class="box-fg">
+    <div class="box-zebra"> </div>
+    <div class="box-title"> 登录 </div>
+    <div class="box-texts">
+      如果忘记密码，请点[<a href="/u/recover">这里</a>]进行重置。<br/>
+      <br/>
+      <form id="login" action="/u/login" method="post">
+	手　机：
+	<input name="mobile" type="text" /> * <br/>
+	密　码：
+	<input name="password" type="password" /> * <br/>
+	验证码：
+	<input name="token" type="text" size="6" /> * <br/>
+	<br/>
+	标有 * 号的为必填项。<br/>
+	<br/>
+	<div class="box-buttons">
+	  <input type="reset" value="取消"/>
+	  <input type="submit" value="确定"/>
+	</div>
+      </form>
+    </div>
+  </div>
+
+  <div id="recover" class="box-fg">
+    <div class="box-zebra"> </div>
+    <div class="box-title"> 重置密码 </div>
+    <div class="box-texts">
+      <form id="recover" action="/u/recover" method="post">
+	手　机：
+	<input name="mobile" type="text" /> * <br/>
+	验证码：
+	<input name="token" type="text" size="6" /> * <br/>
+	<br/>
+	标有 * 号的为必填项。<br/>
+	<br/>
+	<div class="box-buttons">
+	  <input type="reset" value="取消"/>
+	  <input type="submit" value="确定"/>
+	</div>
+      </form>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  $(function(){
+
+    // submit
+    $("#diag form#register").submit(function(){
+      $.post($(this).attr("action"), $(this).serialize(), function(d){
+        if(!d[0]) alert("success");
+      }, "json");
+      return false;
+    });
+    $("#diag form#login").submit(function(){
+      $.post($(this).attr("action"), $(this).serialize(), function(d){
+        if(!d[0]) alert("success");
+      }, "json");
+      return false;
+    });
+    $("#diag form#recover").submit(function(){
+      $.post($(this).attr("action"), $(this).serialize(), function(d){
+        if(!d[0]) alert("success");
+      }, "json");
+      return false;
+    });
+
+    // reset
+    $("#diag form input:reset").click(function(){
+      $(".box-fg,.box-bg", "#diag").fadeOut("slow");
+      return false;
+    });
+
+    // token
+    $("#diag form input[name='token']").focus(function(){
+      var tmp = (new Date()).getTime();
+      $(this).next("br").before("<img src='/u/token?"+tmp+"' />");
+    }).blur(function(){
+      $(this).next("img").remove();
+    });
+
+    // hints
+    $("#diag form input[type!='reset']").focus(function(){
+      var n = $(this).attr("name");
+      var p = $(this).parent().attr("id");
+      var t = $(this).nextAll("br").offset().top;
+      var l = 0;
+      $.each($(this).siblings(), function(){
+        var lx = $(this).nextAll("br").offset().left;
+        l = lx > l ? lx : l;
+      });
+      l += 20;
+      $("#diag .box-hints").hide();
+      if($("#diag .box-hints[for='"+p+"'] span[for='"+n+"']").length){
+        $("#diag .box-hints[for='"+p+"'] span").hide();
+        $("#diag .box-hints[for='"+p+"'] span[for='"+n+"']").show();
+        $("#diag .box-hints[for='"+p+"']").show().css({left: l+"px", top: t+"px"});
+      }
+    }).blur(function(){
+      $("#diag .box-hints").hide();
+    });
+
+    // show
+    function show(id){
+      $("#diag .box-fg").fadeOut();
+      var l = ($("#diag .box-bg").width() - $("#diag div"+id).width()) / 2;
+      var t = ($("#diag .box-bg").height() - $("#diag div"+id).height()) / 3;
+      l = (l > 0) ? l : 0; t = (t > 0) ? t : 0;
+      $("div"+id, "#diag").css({left: l+"px", top: t+"px"});
+      $("div"+id+",.box-bg", "#diag").fadeIn("slow");
+    }
+    $("#diag").bind("recover", function(){ show("#recover"); return false; });
+    $("#diag").bind("register", function(){ show("#register"); return false;});
+    $("#diag").bind("login", function(){ show("#login"); return false; });
+
+    // links
+    $("#diag a[href='/u/recover']").click(function(){
+      $("#diag").trigger("recover");
+      return false;
+    });
+    $("#diag a[href='/u/register']").click(function(){
+      $("#diag").trigger("register");
+      return false;
+    });
+    $("#diag a[href='/u/login']").click(function(){
+      $("#diag").trigger("login");
+      return false;
+    });
+
+    // init
+    $("#diag .box-fg,.box-bg,.box-hints").hide();
+    // $("#diag .box-fg,.box-bg,.box-hints,.topmenu").hide();
+    // $.thread(function(){ $("#diag .topmenu").fadeIn(1000); }, 1000);
+
+  });
+</script>
+  
+</div>

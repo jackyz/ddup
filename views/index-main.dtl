@@ -1,0 +1,44 @@
+<div id="main">
+
+<style type="text/css">
+#main {
+  margin-top:1.5em;
+}
+#main .expandable {
+  cursor: pointer;
+}
+</style>
+
+  <p>Good good study, day day up!</p>
+  <ul class="expandable">
+    <li>What?
+      <ul>
+	<li>description of what.</li>
+	<li>description of what.</li>
+	<li>description of what.</li>
+	<li>description of what.</li>
+      </ul>
+    </li>
+    <li>Why?
+      <ul>
+	<li>description of why.</li>
+	<li>description of why.</li>
+	<li>description of why.</li>
+      </ul>
+    </li>
+  </ul>
+
+<script type="text/javascript">
+  $(function(){
+    // expandable list
+    $("ul.expandable > li").click(function(){
+      $(this).siblings().children("ul").hide();
+      $(this).children("ul").show();
+      return false;
+    });
+    $("ul.expandable ul").hide();
+  });
+</script>
+
+</div>
+

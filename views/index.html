@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}welcome{% endblock %}
+
+{% block body %}
+
+<div id="main">
+
+<style type="text/css">
+#main {
+  margin-top:1.5em;
+}
+#main .expandable {
+  cursor: pointer;
+}
+</style>
+
+<div class="content">
+  <p>Good good study, day day up!</p>
+  <ul class="expandable">
+    <li>What?
+      <ul>
+	<li>description of what.</li>
+	<li>description of what.</li>
+	<li>description of what.</li>
+	<li>description of what.</li>
+      </ul>
+    </li>
+    <li>Why?
+      <ul>
+	<li>description of why.</li>
+	<li>description of why.</li>
+	<li>description of why.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    // expandable list
+    $("ul.expandable > li").click(function(){
+      $(this).siblings().children("ul").hide();
+      $(this).children("ul").show();
+      return false;
+    });
+    $("ul.expandable ul").hide();
+    // init
+    $("#main .content").show();
+  });
+</script>
+
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+  $.lazy("/ui/menu_guest.html").load();
+  $.lazy("/ui/login.html").load();
+  $.lazy("/ui/recover.html").load();
+  $.lazy("/ui/register.html").load();
+});
+</script>
+
+{% endblock %}

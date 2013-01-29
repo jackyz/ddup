@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>ddup show</title>
+    <script type="text/javascript" src="/scripts/jquery.js"> </script>
+    <script type="text/javascript" src="/scripts/ddup.ext.js"> </script>
+    <script type="text/javascript">
+      $(function(){
+        (function(){
+
+          // **** server api
+
+          var feed_url = "/c/zdx/feed";
+          var post_url = "/c/zdx/post";
+
+          // GET -> JSON  :: 获取练习数据
+          //   JSON :: [0, Any] | [1, Err]
+          //   Any  :: [S1, S2, S3, ...]
+          //   Err  :: {error:Ec, message:Msg}
+          //   Ec   :: not_login | did_today
+          // POST -> JSON :: 提交练习数据
+          //   JSON :: [0] | [1, Err]
+          //   Err  :: {error:Ec, message:Msg}
+          //   Ec   :: not_login | get_first | expired
+
+          function feed(fn){
+            $.ajax({
+              type: "GET",
+              url: feed_url,
+              dataType: "json",
+              success: function(d){
+                if(d instanceof Array && d[0] == 0 && d[1]){
+                  fn(d[1]);
+                }else{
+                  error("出现错误，请点击关闭。错误信息："+d.toSource());
+                }
+              },
+              error: function(x, t, e){
+                // alert("error:x="+x+",t="+t+",e="+e);
+                error("出现错误，请点击关闭");
+              }
+            });
+          }
+
+          function back(fn){
+            $.ajax({
+              type: "POST",
+              url: post_url,
+              data: {d:done},
+              dataType: "json",
+              success: function(d, t){
+                if(d instanceof Array && d[0] == 0){
+                  fn();
+                }else{
+                  error("出现错误，请点击关闭。错误信息："+d.toSource());
+                }
+              },
+              error: function(x, t, e){
+                // alert("error:x="+x+",t="+t+",e="+e);
+                error("出现错误，请点击关闭");
+              }
+            });
+          }
+
+          // **** view
+
+          function info(str){
+            if (str == "") return;
+            $("#txt").text(str).css("font-size", "16px"); // reset font-size
+            $("#box").css({"height":"100%", "line-height":"0px"}); // ie-shrink
+            $("#box").css({"line-height": $("#box").height()+"px"}); // vcenter
+          }
+
+          function error(str){
+            info(str);
+            $("#box").one("click", function(){ window.close(); });
+          }
+
+          var scale = 0.6;
+
+          function paint(str){
+            if (str == "") return;
+            $("#txt").text(str).css("font-size", "16px"); // reset font-size
+            $("#box").css({"height":"100%", "line-height":"0px"}); // ie-shrink
+            // var log = "";
+            var bh = $("#box").height(), bw = $("#box").width();
+            var th = $("#txt").height(), tw = $("#txt").width();
+            // log += "bh:"+bh+",bw:"+bw+",th:"+th+",tw:"+tw;
+            var tf = parseInt($("#txt").css("font-size"));
+            var tf2 = (tw/th) > (bw/bh) ? (bw*scale/tw*tf) : (bh*scale/th*tf);
+            // log += " font-size:"+tf+"->"+tf2;
+            // alert(log);
+            $("#box").css({"line-height": bh+"px"}); // vertical align box
+            $("#txt").css("font-size", tf2+"px"); // change the font size
+          }
+
+          // **** logic
+
+          var buff = [], done = [], now = "";
+
+          function init(){
+            info("准备中……(按F11键切到全屏效果更佳)");
+            feed(function(data){
+              $.thread(function(){
+                buff = data; done = []; now = buff.shift();
+                info("请点击开始……(演示中，点击继续，点击右键重复)");
+                $("#box").one("click", function(){start(); return false;});
+              }, 3000);
+            });
+          }
+
+          function start(){
+            paint(now);
+            $("#txt").no_select();
+            $("#box").bind("click", function(){
+              done.push(now);
+              if(buff.length == 0){
+                stop();
+              }else{
+                now = buff.shift();
+                paint(now);
+              }
+              return false;
+            });
+            $("#box").bind("contextmenu", function(){
+              if(buff.length > 0){
+                var tmp = now; now = buff.shift();
+                // buff.unshift(tmp);
+                buff.push(tmp);
+              }
+              paint(now);
+              return false;
+            });
+            $(window).bind("resize", function(){
+              paint(now);
+              return false;
+            });
+          }
+
+          function stop(){
+            back(function(){
+              buff = []; done = []; now = "";
+              info("已结束……(3秒钟后此窗口将自动关闭)");
+              $("#box").one("click", function(){ window.close(); });
+              // $.thread(function(){ window.close(); }, 3000);
+            });
+            info("正在结束……");
+            $("#box").unbind("click");
+            $("#box").unbind("contextmenu");
+          }
+
+          init();
+
+        })();
+
+      });
+    </script>
+    <style type="text/css">
+      /* layout */
+      #box { text-align:center; margin:0 auto; }
+      /* size */
+      #box { width:100%; height:100%; }
+      /* debug */
+      body { background:#e8e8ff; }
+      #box { border:0px solid blue; }
+      #txt { border:0px solid red; }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <span id="txt"> </span>
+    </div>
+  </body>
+</html>

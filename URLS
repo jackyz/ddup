@@ -1,0 +1,17 @@
+# home_controller.erl
+/		:: GET html static :: site ui :: login diff
+# u_controller.erl user
+/u/register	:: POST :: register form/post
+/u/login	:: POST :: login form/post
+/u/recover	:: POST :: recover password
+/u/logout   	:: GET/POST :: logout form/post
+# c_controller.erl course
+/c/<c>		:: GET html static :: course <c> ui index.html
+/c/<c>/feed	:: GET json dynamic :: course <c> show data feed
+/c/<c>/post	:: POST json dynamic :: course <c> show data post
+# a_controller.erl alert
+/a		:: GET html static :: alert ui index.html
+/a/setting	:: GET json dynamic :: alerts setting data feed
+# s_controller.erl status
+/s		:: GET json dynamic :: my overview status data feed
+/s/<c>		:: GET json dynamic :: my status of course <c> data feed
